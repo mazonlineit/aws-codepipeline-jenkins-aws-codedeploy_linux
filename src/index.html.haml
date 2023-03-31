@@ -1,32 +1,18 @@
 !!!
-%html
-  %head
-    %meta{:charset => "utf-8"}
-      %title Sample Deployment
-      :css
-        body {
-          color: #ffffff;
-          background-color: #007f3f;
-          font-family: Arial, sans-serif;
-          font-size: 14px;
-        }
-        
-        h1 {
-          font-size: 500%;
-          font-weight: normal;
-          margin-bottom: 0;
-        }
-        
-        h2 {
-          font-size: 200%;
-          font-weight: normal;
-          margin-bottom: 0;
-        }
-    %body
-    %div{:align => "center"}
-      %h1 Congratulations!
-      %h2 You have successfully completed the second tutorial for AWS CodePipeline.
-      %p
-        For next steps, read the
-        = succeed "." do
-          %a{:href => "http://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html"} AWS CodePipeline Documentation
+%head
+  %title= content_for?(:title) ? yield(:title) : I18n.t("site_title")
+  %meta{:name => "description", :content=> "#{ content_for?(:description) ? yield(:description) : (I18n.t "site_description")}"}
+  %meta{:charset => "utf-8"}
+  %meta{:author => "John Lockwood"}
+  =stylesheet_link_tag    "application", :media => "all"
+  =javascript_include_tag "application"
+  =csrf_meta_tags
+  = yield(:head)
+%body
+  #container.container
+    %header
+      = render 'layouts/navigation'
+      = render 'layouts/messages'
+    #main{:role => "main"}
+      = yield
+    %footer
